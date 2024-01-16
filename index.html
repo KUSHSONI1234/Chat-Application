@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RealTime Chat Application</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="logo">Welcome to my Chat Application</h1>
+        <form class="form" id="form">
+            <input class="input" type="text" placeholder="Name" id="myname">
+            <input class="input" type="text" placeholder="Message" id="message">
+            <button class="button" type="button" onclick="sendMessage()">Send Message</button>
+        </form>
+        <div class="messageArea" id="messageArea"></div>
+    </div>
+
+    <script>
+        // Array to store messages
+        const messagesArray = [];
+
+        function displayMessages() {
+            const messageArea = $('#messageArea');
+            messageArea.empty();
+
+            messagesArray.forEach(message => {
+                const messageElement = $('<div class="message"></div>');
+                messageElement.html(`<span class="username">${message.name}:</span> ${message.message}`);
+                messageArea.append(messageElement);
+            });
+
+            // Scroll to the bottom of the message area
+            messageArea.scrollTop(messageArea[0].scrollHeight);
+        }
+
+        function sendMessage() {
+            const myname = $('#myname').val();
+            const messageText = $('#message').val();
+
+            if (myname && messageText) {
+                // Create a message object
+                const newMessage = {
+                    name: myname,
+                    message: messageText
+                };
+
+                // Add the new message to the array
+                messagesArray.push(newMessage);
+
+                // Display the messages
+                displayMessages();
+
+                // Clear input fields
+                $('#message').val('');
+                // $('#myname').val('');
+            }
+        }
+    </script>
+</body>
+
+</html>
